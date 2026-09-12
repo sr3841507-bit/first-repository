@@ -1,0 +1,7 @@
+i am making a web application whose name is medi max . in that website , people can book their slots for dr appointment they wilp register with their unique id and password and 2 factor authenticcation after loggiing in ,  they can give commands to app to search for nearby the app will show them the time and their booking slot in which they can visit dr. the medicines given by dr will be added in th emedical info of person . it will have all the history of lab reports x rays and medication s. it willl send u reminders to eat medicine or for next vaccination or for next dr session .if they is outbreak of pandemic in your region it will alert the govt and u .it has an ai based chatbot that will answer medical related questions andd, if u search for a medicine there.on the basis of you medical history and allergies it will predict that. it can advice u home remedies and can predict what risk you body currrently has. for those who are visually impaired or arent educated we are makeing multilingual model and voice assistance is also available the sms can be sent on keypad phones also  . we are making it for smart india hackathon .  please  give a nice paragraph based on following parameters 
+introduction 
+main motive 
+future scope 
+difference between our model and ABHA model of govt.
+complete explaination of design .
+crisp summary 
