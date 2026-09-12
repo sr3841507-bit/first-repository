@@ -1,0 +1,241 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.sql.*;
+import java.util.Calendar;
+import javax.swing.event.*;
+
+
+class receivedetails  extends JFrame implements ActionListener
+{
+Connection con;
+JLabel l1,l2,l3,l4,l5,l6,l7;
+JTextField t1,t2,t3,t4,t5,t6;
+JButton b1,b2,b3,b4;
+JFileChooser f1;
+JComboBox c2;
+int count1;
+
+receivedetails()
+{
+setSize(1900,1100);
+setLayout(null);
+
+JPanel background = new JPanel() {
+Image bg = new ImageIcon("img2.jpeg").getImage();
+protected void paintComponent(Graphics g) {
+super.paintComponent(g);
+Graphics2D g2d = (Graphics2D) g;
+g2d.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
+g2d.setColor(new Color(255, 255, 255, 100)); 
+g2d.fillRect(0, 0, getWidth(), getHeight());
+}
+};
+ 
+Font font1=new Font("Mystical",Font.BOLD,50);
+Font font2=new Font("Book Antiqua",Font.BOLD,30);
+Font font3=new Font("Cambria",Font.BOLD,20);
+try{
+Class.forName("com.mysql.jdbc.Driver");
+con=DriverManager.getConnection("jdbc:mysql://localhost/user","root","");
+}catch(Exception a)
+{
+System.out.println(a.toString());
+}
+
+t1=new JTextField();
+t2=new JTextField();
+t3=new JTextField();
+t4=new JTextField();
+t5=new JTextField();
+t6=new JTextField();
+
+
+c2=new JComboBox();
+
+
+
+l1=new JLabel("RECEIVE DETAILS :");
+l2=new JLabel("SERIAL NO: ");
+l3=new JLabel("PARTY NAME ");
+l4=new JLabel("DATE: ");
+l5=new JLabel("BALANCE:");
+l6=new JLabel("AMOUNT:");
+l7=new JLabel("DETAILS:");
+
+
+l1.setFont(font1);
+l1.setForeground(Color.decode("#F7DC6F"));
+l1.setBounds(650,70,800,100);
+
+
+
+l2.setFont(font2);
+l2.setForeground(Color.black);
+l2.setBounds(600,200,450,50);
+
+
+t1.setBounds(1000,200,300,47);
+t1.setBackground(Color.decode("#94B0DB"));
+t1.setFont(font3);
+
+
+
+l3.setFont(font2);
+l3.setForeground(Color.black);
+l3.setBounds(600,300,450,50);
+ 
+c2.setBounds(1000,300,300,47);
+c2.setBackground(Color.decode("#94B0DB"));
+c2.setFont(font3); 
+
+
+
+l4.setFont(font2);
+l4.setForeground(Color.black);
+l4.setBounds(600,400,450,50);
+   
+
+
+
+t3.setBounds(1000,400,300,47);
+t3.setBackground(Color.decode("#94B0DB"));
+t3.setFont(font3);
+
+
+
+
+l5.setFont(font2);
+l5.setForeground(Color.black);
+l5.setBounds(600,500,450,50);
+
+
+
+t4.setBounds(1000,500,300,47);
+t4.setBackground(Color.decode("#94B0DB"));
+t4.setFont(font3);
+
+
+
+l6.setFont(font2);
+l6.setForeground(Color.black);
+l6.setBounds(600,600,450,50);
+
+
+t5.setBounds(1000,600,300,47);
+t5.setBackground(Color.decode("#94B0DB"));
+t5.setFont(font3);
+
+
+  l7.setFont(font2);
+l7.setForeground(Color.black);
+l7.setBounds(600,700,450,50);
+
+
+t6.setBounds(1000,700,300,47);
+t6.setBackground(Color.decode("#94B0DB"));
+t6.setFont(font3);
+
+ 
+
+
+
+
+try
+{
+Statement stmt1 = con.createStatement();
+    String s = "SELECT name from sparty ";
+ResultSet rs1 = stmt1.executeQuery(s);
+c2.addItem("");
+    while (rs1.next()) 
+{       
+c2.addItem(rs1.getString(1));
+ }
+}catch(Exception f2)
+{
+System.out.println(f2.toString());
+}
+
+
+
+
+add(t1);
+add(t2);
+add(t3);
+add(t4);
+add(t5);
+add(t6);
+add(c2);
+
+add(l1);
+add(l2);
+add(l3);
+add(l4);
+add(l5);
+add(l6);
+add(l7);
+
+
+
+
+background.setLayout(null);
+
+background.add(t1);
+background.add(t2);
+background.add(t3);
+background.add(t4);
+background.add(t5);
+background.add(t6);
+background.add(c2);
+
+
+background.add(l1);
+background.add(l2);
+background.add(l3);
+background.add(l4);
+background.add(l5);
+background.add(l6);
+background.add(l7);
+setContentPane(background); 
+
+setVisible(true);
+}
+
+public void actionPerformed(ActionEvent e)
+{
+
+try{
+
+ if (e.getSource()==c2)
+{
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery("Select clbalance from sparty where name='"+c2.getSelectedItem().toString()+"'");
+
+if(rs.next())
+t4.setText(rs.getString(1));
+
+
+Statement stmt1=con.createStatement();
+String s2="select  serial,sdate,amt,details  from receive where pname='"+c2.getSelectedItem().toString()+"'";
+ResultSet rs2= stmt1.executeQuery(s2);
+if(rs2.next())
+ {
+t1.setText(rs.getString(1));
+t3.setText(rs.getString(2));
+t5.setText(rs.getString(3));
+t6.setText(rs.getString(4));
+}
+
+}
+
+
+} catch(Exception ex) {
+System.out.println(ex.toString());
+}
+}
+
+public static void main(String args[]) {
+receivedetails obj =new  receivedetails();
+}
+}
+
